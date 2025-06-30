@@ -1,0 +1,8 @@
+[Unit]
+Description=Mount USB Flash Drive to klipper printer_data/gcodes on %i
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/boot/scripts/usb_udev.sh usb %i add
+ExecStop=/boot/scripts/usb_udev.sh usb %i remove
