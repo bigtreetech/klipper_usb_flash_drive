@@ -21,11 +21,17 @@ prevent_sudo_execution() {
 
 prevent_sudo_execution
 
-sudo cp ./usb_udev.sh /boot/scripts
+SCRIPT_DIR="/boot/scripts"
+
+if [ ! -d "$SCRIPT_DIR" ]; then
+    mkdir -p "$SCRIPT_DIR"
+fi
+
+sudo cp ./usb_udev.sh $SCRIPT_DIR
 sudo cp ./15-udev.rules /etc/udev/rules.d
 sudo cp ./usb-mount@.service /etc/systemd/system/
 
-sudo sed -i 's/%user%/'''`whoami`'''/' /boot/scripts/usb_udev.sh
+sudo sed -i 's/%user%/'''`whoami`'''/' $SCRIPT_DIR/usb_udev.sh
 
 if [ `grep -c "PrivateMounts=yes" "/usr/lib/systemd/system/systemd-udevd.service"` -eq '1' ];then
     sudo sed -i 's/PrivateMounts=yes/PrivateMounts=no/' /usr/lib/systemd/system/systemd-udevd.service
