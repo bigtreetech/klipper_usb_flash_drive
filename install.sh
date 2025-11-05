@@ -24,7 +24,7 @@ prevent_sudo_execution
 SCRIPT_DIR="/boot/scripts"
 
 if [ ! -d "$SCRIPT_DIR" ]; then
-    mkdir -p "$SCRIPT_DIR"
+    sudo mkdir -p "$SCRIPT_DIR"
 fi
 
 sudo cp ./usb_udev.sh $SCRIPT_DIR
